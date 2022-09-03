@@ -15,3 +15,19 @@ CREATE USER '<username>'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO '<username>'@'%';
 flush privileges;
 # ------------------------------------------------------
+# [MariaDB]
+# Image Pulling
+# 이미지를 통해 컨테이너 생성하면 기본적으로 username은 root만 생김.
+docker pull mariadb
+docker pull mariadb:<version>
+
+docker run --name <Nickname in Docker> -e MYSQL_ROOT_PASSWORD=<password> -d -p 3306:3306 mariadb:latest
+docker run --name <Nickname in Docker> -e MYSQL_ROOT_PASSWORD=<password> -d -p 3306:3306 mariadb:<version>
+
+# Connection in Mac Terminal
+docker exec -it <Nickname in Docker> bash
+
+# 외부에서 접속할 수 있게 MySQL안에서 계정 생성
+CREATE USER '<username>'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO '<username>'@'%';
+flush privileges;
