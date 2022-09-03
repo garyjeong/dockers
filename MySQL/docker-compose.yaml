@@ -1,0 +1,22 @@
+# 버전 지정
+version: "3"
+
+# 컨테이너 설정
+services: 
+  db:   
+    # Docker Container Name
+    container_name: <container_name>
+    # Image to use
+    images: mysql:<version>
+    # 컨테이너 다운 시 재시작하라는 명령어
+    restart: always 
+    # 컨테이너 안의 환경변수 설정
+    environment: 
+      # 기본 Root 계정의 비밀번호
+      - MYSQL_ROOT_PASSWORD: <password>
+      # 기본적으로 생성할 DB
+      - MYSQL_DATABASE: <database name>
+      - MYSQL_ROOT_HOST: '%'
+    # Port 지정
+    ports: 
+      - "3306:3306"
