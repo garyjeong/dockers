@@ -3,7 +3,7 @@ version: "3"
 
 # 컨테이너 설정
 services: 
-  db:   
+  database:   
     # Docker Container Name
     container_name: <container_name>
     # Image to use

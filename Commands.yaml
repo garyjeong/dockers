@@ -14,6 +14,7 @@ docker exec -it <Nickname in Docker> bash
 CREATE USER '<username>'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO '<username>'@'%';
 flush privileges;
+
 # ------------------------------------------------------
 # [MariaDB]
 # Image Pulling
@@ -31,3 +32,13 @@ docker exec -it <Nickname in Docker> bash
 CREATE USER '<username>'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON *.* TO '<username>'@'%';
 flush privileges;
+
+# ------------------------------------------------------
+# [Redis]
+# Image Pulling
+docker pull redis
+docker pull redis:<version>
+
+docker run --name <Nickname in Docker> -d redis
+docker run -p <port>:<port> --name <Nickname in Docker> -d redis --requirepass <password>
+docker run -p <port>:<port> --name <Nickname in Docker> -d redis:<version> --requirepass <password>
