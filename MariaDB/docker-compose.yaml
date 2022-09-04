@@ -3,11 +3,11 @@ version: "3.7"
 
 # 컨테이너 설정
 services: 
-  db:   
+  database:   
     # Docker Container Name
     container_name: <container_name>
     # Image to use
-    images: mariadb:<version>
+    image: mariadb:<version>
     # 컨테이너 다운 시 재시작하라는 명령어
     restart: always 
     # 데이터베이스 컨테이너 안의 환경변수 설정
