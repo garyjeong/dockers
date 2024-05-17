@@ -9,4 +9,6 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN apt-get wget -y
+
 CMD ["dockerd", "--host=unix:///var/run/docker.sock"]
