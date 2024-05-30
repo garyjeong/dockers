@@ -2,10 +2,11 @@ FROM arm64v8/ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && apt install -y git openssh-server \
-    sudo htop sysstat libz-dev libssl-dev libcurl4-gnutls-dev \
-    libexpat1-dev gettext cmake gcc \
-    libasio-dev libglpk-dev \
+RUN apt-get update && apt-get install -y \
+    openssh-server \
+    sudo \
+    htop \
+    sysstat \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
