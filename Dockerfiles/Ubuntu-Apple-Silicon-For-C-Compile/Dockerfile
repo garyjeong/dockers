@@ -18,6 +18,4 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/
 
 EXPOSE 22
 
-RUN sudo apt update && upgrade
-
 CMD ["/usr/sbin/sshd", "-D"]

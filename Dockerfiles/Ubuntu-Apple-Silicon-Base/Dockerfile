@@ -2,14 +2,13 @@ FROM arm64v8/ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
     openssh-server \
     sudo \
     htop \
     sysstat \
-    && apt-get clean \
+    && apt clean \
     && rm -rf /var/lib/apt/lists/*
-
 
 RUN mkdir /var/run/sshd
 
@@ -19,6 +18,5 @@ RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/
 
 EXPOSE 22
 
-RUN sudo apt update && upgrade
 
 CMD ["/usr/sbin/sshd", "-D"]

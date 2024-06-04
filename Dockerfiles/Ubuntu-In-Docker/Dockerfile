@@ -10,5 +10,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y wget htop
+
 EXPOSE 5000
+
 CMD ["dockerd", "--host=unix:///var/run/docker.sock"]
