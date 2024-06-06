@@ -1,27 +1,15 @@
-# 버전 지정
-version: "3.7"
+version: "3.8"
 
-# 컨테이너 설정
 services: 
   database:   
-    # Docker Container Name
-    container_name: <container_name>
-    # Image to use
-    image: mysql:<version>
-    # 컨테이너 다운 시 재시작하라는 명령어
-    restart: always 
-    # 데이터베이스 컨테이너 안의 환경변수 설정
+    container_name: mysql
+    image: mysql:latest
+    restart: unless-stopped 
     environment:
-      # 기본적으로 생성할 DB
       - MYSQL_DATABASE=<Database Name>
-      # 데이터베이스에 연결할 계정 
       - MYSQL_USER=<Username>
-      # 데이터베이스에 연결할 계정의 비밀번호
       - MYSQL_PASSWORD=<Password>
-      # 기본 Root 계정의 비밀번호
       - MYSQL_ROOT_PASSWORD=<Root Password>
-      # 데이터베이스 타임존
-      - TZ=<Timezone Index>
-    # Port 지정
+      - TZ=Asia/Seoul
     ports: 
       - "3306:3306"
