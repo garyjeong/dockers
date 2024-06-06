@@ -1,14 +1,9 @@
-# 버전 지정
-version: "3.7"
+version: "3.8"
 
 services:
   redis:
-    # Docker Container Name
     container_name: <container_name>
-    # Image to use
     image: redis:<version>
-    # 컨테이너 다운 시 재시작하라는 명령어
     restart: always
-    # Port 지정
     ports:
       - '6379:6379'
