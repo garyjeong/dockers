@@ -6,10 +6,15 @@ services:
     image: mysql:latest
     restart: unless-stopped 
     environment:
-      - MYSQL_DATABASE=<Database Name>
-      - MYSQL_USER=<Username>
-      - MYSQL_PASSWORD=<Password>
-      - MYSQL_ROOT_PASSWORD=<Root Password>
-      - TZ=Asia/Seoul
+      MYSQL_DATABASE: <Database Name>
+      MYSQL_USER: <Username>
+      MYSQL_PASSWORD: <Password>
+      MYSQL_ROOT_PASSWORD: <Root Password>
+      TZ: Asia/Seoul
     ports: 
       - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

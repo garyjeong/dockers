@@ -6,10 +6,15 @@ services:
     image: mariadb:latest
     restart: unless-stopped 
     environment:
-      - MYSQL_DATABASE=<Database Name>
-      - MYSQL_USER=<Username>
-      - MYSQL_PASSWORD=<Password>
-      - MYSQL_ROOT_PASSWORD=<Root Password>
-      - TZ=Asia/Seoul
+      MYSQL_DATABASE: <Database Name>
+      MYSQL_USER: <Username>
+      MYSQL_PASSWORD: <Password>
+      MYSQL_ROOT_PASSWORD: <Root Password>
+      TZ: Asia/Seoul
     ports: 
       - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+volumes:
+  mariadb_data:
