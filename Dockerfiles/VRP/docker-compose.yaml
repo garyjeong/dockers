@@ -1,0 +1,104 @@
+version: '3'
+
+services:
+  osrm-prepare:
+    container_name: osrm-prepare
+    build:
+      context: ./OSRM
+    volumes:
+      - ./data:/osrm/data
+    command: >
+      bash -c "
+      cd /osrm && 
+      ./prepare_osrm.sh"
+    labels:
+      - "com.docker.compose.rm=true"
+    networks:
+      - vrp-network
+
+  osrm:
+    container_name: osrm-korea
+    build:
+      context: ./OSRM
+    volumes:
+      - ./data:/osrm/data
+    ports:
+      - "10000:5000"
+    depends_on:
+      osrm-prepare:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    networks:
+      - vrp-network
+
+  graphhopper-prepare:
+    container_name: graphhopper-prepare
+    build:
+      context: ./GraphHopper
+    volumes:
+      - ./data:/graphhopper/data
+    command: >
+      bash -c "
+      cd /graphhopper && 
+      ./prepare_graphhopper.sh"
+    labels:
+      - "com.docker.compose.rm=true"
+    networks:
+      - vrp-network
+
+  graphhopper:
+    container_name: graphhopper-korea
+    build:
+      context: ./GraphHopper
+    volumes:
+      - ./data:/graphhopper/data
+    ports:
+      - "8989:8989"
+    depends_on:
+      graphhopper-prepare:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    command: >
+      java -Xmx2g -Xms2g -jar /graphhopper/web/target/graphhopper-web-*.jar server /graphhopper/config.yml
+    networks:
+      - vrp-network
+
+  valhalla-prepare:
+    container_name: valhalla-prepare
+    build:
+      context: ./Valhalla
+    volumes:
+      - ./data:/valhalla/data
+    command: >
+      bash -c "
+      cd /valhalla && 
+      ./prepare_valhalla.sh"
+    labels:
+      - "com.docker.compose.rm=true"
+    networks:
+      - vrp-network
+
+  valhalla:
+    container_name: valhalla-korea
+    image: gisops/valhalla:latest
+    volumes:
+      - ./data:/data
+    ports:
+      - "8002:8002"
+    depends_on:
+      valhalla-prepare:
+        condition: service_completed_successfully
+    environment:
+      - tile_urls=https://download.geofabrik.de/asia/south-korea-latest.osm.pbf
+      - min_x=124
+      - min_y=33
+      - max_x=132
+      - max_y=39
+      - use_tiles_ignore_pbf=True
+    restart: unless-stopped
+    networks:
+      - vrp-network
+
+networks:
+  vrp-network:
+    driver: bridge 
